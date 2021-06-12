@@ -1,23 +1,24 @@
 <template>
   <b-container class="my-5">
-    <v-row>
-      <v-col>
+    <b-row>
+      <b-col>
         <b-card title="New graph" sub-title="Create new graph">
-          <v-card-text>
+          <b-card-text>
             <graph-form ref="graphForm" v-model="graph" />
-          </v-card-text>
-          <b-card-actions>
-            <b-button variant="primary" @click="submitGraph">Submit</b-button>
-            <b-button variant="danger">Reset</b-button>
-          </b-card-actions>
+          </b-card-text>
+          <b-button variant="primary" class="mr-2" @click="submitGraph"
+            >Submit</b-button
+          >
+          <b-button variant="danger">Reset</b-button>
         </b-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col v-for="(item, i) in graphs" :key="i" cols="12" md="3" sm="4">
+      </b-col>
+    </b-row>
+    <hr class="my-12" />
+    <b-row>
+      <b-col v-for="(item, i) in graphs" :key="i" cols="12" md="4" sm="2">
         <graph-card :data="item" />
-      </v-col>
-    </v-row>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 

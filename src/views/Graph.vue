@@ -1,6 +1,5 @@
 <template>
-  <b-container v-if="graph">
-    <!-- <graph-card :data="graph" /> -->
+  <b-container v-if="graph" class="my-5">
     <div class="display-1" v-text="graph.name" />
     <div class="overline" >id: #{{ graph.id }}</div>
     <p class="body-1" v-text="graph.desc" />
