@@ -9,7 +9,7 @@
           <b-button variant="primary" class="mr-2" @click="submitGraph"
             >Submit</b-button
           >
-          <b-button variant="danger">Reset</b-button>
+          <b-button variant="danger" @click="resetGraphForm">Reset</b-button>
         </b-card>
       </b-col>
     </b-row>
@@ -48,6 +48,7 @@ export default {
     submitGraph() {
       if (!this.$refs.graphForm.validate()) return;
       this.addGraph(this.graph);
+      this.resetGraphForm();
     },
     resetGraphForm() {
       this.$refs.graphForm.reset();

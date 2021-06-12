@@ -1,15 +1,15 @@
 <template>
   <b-container v-if="graph" class="my-5">
-    <div class="display-1" v-text="graph.name" />
-    <div class="overline" >id: #{{ graph.id }}</div>
-    <p class="body-1" v-text="graph.desc" />
-    <div class="body-1"> created at {{ graph.created_at }} </div>
-    <div class="body-1"> updated at {{ graph.updated_at }} </div>
+    <div class="display-4" v-text="graph.name" />
+    <p class="lead" v-text="graph.desc" />
     
     <hr />
     <div class="mt-4 d-flex">
       <b-button class="mr-2" variant="primary" :to="`/graphs/${graph.id}/edit`">
         edit
+      </b-button>
+      <b-button class="mr-2" variant="primary" :to="`/graphs/${graph.id}/statistics`">
+        statistics
       </b-button>
       <b-button variant="danger" @click="onDelete">
         delete
@@ -19,20 +19,22 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Graph",
-  data: () => ({
-    graph: null
-  }),
+  computed: {
+    ...mapGetters({
+      graph: 'graph'
+    })
+  },
   async mounted() {
     const id = this.$route.params.id;
-    this.graph = await this.getGraph(id);
+    this.setCurrentGraphId(id)
   },
   methods: {
     ...mapActions({
-      getGraph: "getGraph",
+      setCurrentGraphId: "setCurrentId",
       deleteGraph: "deleteGraph"
     }),
     onDelete() {

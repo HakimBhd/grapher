@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import GraphEditor from "@/components/graphs/GraphEditor";
 import NodeFrom from "@/components/forms/NodeFrom";
 
@@ -19,23 +19,24 @@ export default {
   name: "EditGraph",
   components: { GraphEditor, NodeFrom },
   data: () => ({
-    graph: null,
     node: {}
   }),
+  computed: {
+    ...mapGetters({
+      graph: 'graph'
+    })
+  },
   async mounted() {
-    this.getCurrentGraph();
+    const id = this.$route.params.id;
+    this.setCurrentGraphId(id)
   },
   methods: {
     ...mapActions({
-      getGraph: "getGraph",
+      setCurrentGraphId: "setCurrentId",
       deleteGraph: "deleteGraph",
       addNode: "addNode",
       addEdges: "addEdges"
     }),
-    async getCurrentGraph() {
-      const id = this.$route.params.id;
-      this.graph = JSON.parse(JSON.stringify(await this.getGraph(id)));
-    },
     async onAddNode() {
       if (!this.$refs.nodeForm.validate()) return;
 
@@ -53,8 +54,6 @@ export default {
         nodeId
       }
       this.addEdges(edges);
-
-      this.getCurrentGraph();
       this.$refs.nodeForm.reset()
     },
     onDelete() {

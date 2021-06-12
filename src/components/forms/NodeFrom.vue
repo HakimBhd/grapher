@@ -7,7 +7,7 @@
         placeholder="Name the node"
       ></b-form-input>
     </b-form-group>
-    <b-form-group label="Eadges" for="edges-input" v-slot="{ ariaDescribedby }">
+    <b-form-group v-if="nodes && nodes.length" label="Link with:" for="edges-input" v-slot="{ ariaDescribedby }">
       <b-form-checkbox-group
         v-model="node.edges"
         id="edges-input"
@@ -18,7 +18,8 @@
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-button variant="primary" @click="$emit('save')">Save</b-button>
+    <b-button variant="primary" class="mr-2" @click="$emit('save')">Save</b-button>
+    <b-button variant="danger" @click="reset">Reset</b-button>
   </b-form>
 </template>
 
