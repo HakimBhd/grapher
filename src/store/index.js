@@ -85,7 +85,7 @@ export default new Vuex.Store({
     },
     addNode({ commit, state }, { id, data }) {
       const index = getIndexById(state.graphs, id);
-      const graph = state.graphs[index]
+      const graph = state.graphs[index];
       const nodeData = {
         node: {
           name: data.name
@@ -100,7 +100,7 @@ export default new Vuex.Store({
     },
     addEdges({ commit, state }, { id, nodeId, data }) {
       const index = getIndexById(state.graphs, id);
-      const graph = state.graphs[index]
+      const graph = state.graphs[index];
       if (!data || !data.length) return;
       const edges = data.map(tid => ({
         sid: Number(nodeId),
@@ -116,7 +116,7 @@ export default new Vuex.Store({
     },
     removeEdge({ commit, state }, { id, sid, tid }) {
       const graphIndex = getIndexById(state.graphs, id);
-      const graph = state.graphs[graphIndex]
+      const graph = state.graphs[graphIndex];
       const edgeIndex = graph.edges.findIndex(
         i => i.sid === sid && i.tid === tid
       );
@@ -139,6 +139,15 @@ export default new Vuex.Store({
     index: (state, getters) => {
       if (getters.id) return getIndexById(state.graphs, getters.id);
       return -1;
+    },
+    adjacencies: (state, getters) => {
+      if (!getters.graph) return null;
+      const adj = {};
+      getters.graph.edges.map(edge => {
+        if (typeof adj[edge.sid] !== "object") adj[edge.sid] = [edge.tid];
+        else adj[edge.sid].push(edge.tid);
+      });
+      return adj;
     }
   }
 });

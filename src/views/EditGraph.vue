@@ -26,7 +26,7 @@ export default {
       graph: 'graph'
     })
   },
-  async mounted() {
+  mounted() {
     const id = this.$route.params.id;
     this.setCurrentGraphId(id)
   },

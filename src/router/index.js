@@ -27,7 +27,9 @@ const routes = [
   {
     path: '/graphs/:id/statistics',
     name: 'Graph statistics',
-    component: Home
+    component: function () {
+      return import('../views/GraphStatistics.vue')
+    }
   }
 ]
 
