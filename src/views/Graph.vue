@@ -4,7 +4,7 @@
     <p class="lead" v-text="graph.desc" />
     
     <hr />
-    <div class="mt-4 d-flex">
+    <div class="my-2 d-flex">
       <b-button class="mr-2" variant="primary" :to="`/graphs/${graph.id}/edit`">
         edit
       </b-button>
@@ -15,14 +15,21 @@
         delete
       </b-button>
     </div>
+    <div>
+      <graph-editor :data="graph" />
+    </div>
   </b-container>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import GraphEditor from "@/components/graphs/GraphEditor";
 
 export default {
   name: "Graph",
+  components: {
+    GraphEditor
+  },
   computed: {
     ...mapGetters({
       graph: 'graph'
